@@ -1,0 +1,665 @@
+swagger: '2.0'
+info:
+  description: 'Swagger API'
+  version: 1.0.6
+  title: 'API Development'
+  termsOfService: http://swagger.io/terms/
+  contact:
+    email: API_DEVELOPMENT_TEAM@capgemini.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+host: UserAPI.swagger.io
+basePath: /v1
+schemes:
+  - https
+  - http
+paths:
+  /Permissions:
+    post:
+      tags:
+        - Permissions
+      summary: Create a new Permission 
+      description: 'Adding a new Permission for the User'
+      operationId: AddPermission
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Permission'
+      responses:
+        '200':
+          description: A new Permission created successfully
+          schema:
+            $ref: '#/definitions/Permission'
+       
+        '401':
+          description: Authorization information is missing or invalid
+          schema:
+            $ref: '#/definitions/Permission'
+        '500':
+          description: Internal Server error
+          schema:
+             $ref: '#/definitions/Permission'
+    get:
+      tags:
+        - Permissions
+      summary: Read a permission 
+      description: 'Getting a permission for the User'
+      operationId: GetallPermission
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Permission'
+      responses:
+        '200':
+          description: Permission was readed successfully
+          schema:
+            $ref: '#/definitions/Permission'
+        '401':
+          description: Authorization information is missing or invalid
+          schema:
+            $ref: '#/definitions/Permission'
+        '500':
+          description: Internal Server error
+          schema:
+             $ref: '#/definitions/Permission'   
+    put:
+      tags:
+        - Permissions
+      summary: Update an existing permission
+      description: 'Updating an existing permission for the User'
+      operationId: updatePermission
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Permission'
+      responses:
+        '200':
+          description: Updating permission successfully
+          schema:
+            $ref: '#/definitions/Permission'
+        '400':
+          description: Invalid ID supplied
+        '404':
+          description: Permission not found
+        '405':
+          description: Validation exception
+  /Permissions/{Permission_id}:
+    get:
+      tags:        
+      - Permissions
+      summary: Find permission by ID
+      description: Returns a single Permission by ID
+      operationId: getPermissionById
+      produces:
+        - application/json
+      parameters:
+        - name: Permission_id
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Finded permission by ID Successfully
+          schema:
+            $ref: '#/definitions/Permission'
+        '400':
+          description: Invalid Permission ID supplied
+        '404':
+          description: Permission not found
+    delete:
+      tags:
+        - Permissions
+      summary: Deletes a permission
+      description: 'Deletes a permission'
+      operationId: deletePermission
+      produces:
+        - application/json
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          type: string
+        - name: Permission_id
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Permission deleted successfully
+          schema:
+            $ref: '#/definitions/Permission'
+        '400':
+          description: Invalid Permission ID supplied
+        '404':
+          description: Permission not found
+          
+  /Roles:
+    post:
+      tags:
+        - Roles
+      summary: Create an Role for a User
+      description: 'Adding a Role for a User'
+      operationId: CreateRole
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Roles'
+      responses:
+        '200':
+          description: Role created Successfully
+          schema:
+            $ref: '#/definitions/Roles'
+        '400':
+          description: Invalid Role for a User
+        '500':
+          description: Internal Server error
+          schema:
+             $ref: '#/definitions/Roles'
+    put:
+      tags:
+        - Roles
+      summary: Update an existing resource
+      description: 'Roles object that needs to be updated'
+      operationId: UpdateResource
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Roles'
+      responses:
+        '200':
+          description: Updated a Role Successfully
+          schema:
+            $ref: '#/definitions/Roles'
+        '400':
+          description: Invalid Role ID supplied
+          schema:
+            $ref: '#/definitions/Roles'
+        '404':
+          description: Role not found
+          schema:
+            $ref: '#/definitions/Roles'
+  /GetallUserRole:
+    get:
+      tags:
+        - Roles
+      summary: Reading all roles details for a user
+      description: 'Get all roles details'
+      operationId: GetallUserRole
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Roles'
+      responses:
+        '200':
+          description: Getting all Roles Successfully
+        '400':
+          description: Invalid Roles       
+  /Roles/{Role_id}:
+    get:
+      tags:
+        - Roles
+      summary: Find purchase order by ID
+      description: For valid response try integer IDs with value >= 1 and <= 10. Other values will generated exceptions
+      operationId: GetRolesbyId
+      produces:
+        - application/json
+      parameters:
+        - name: Role_id
+          in: path
+          required: true
+          type: integer
+          maximum: 10
+          minimum: 1
+          format: int64
+      responses:
+        '200':
+          description: Finded Roles by ID successfully
+        '400':
+          description: Invalid Role ID supplied
+        '404':
+          description: Roles not found
+    delete:
+      tags:
+        - Roles
+      summary: Delete purchase order by ID
+      description: For valid response try integer IDs with positive integer value. Negative or non-integer values will generate API errors
+      operationId: DeleteOrder
+      produces:
+        - application/json
+      parameters:
+        - name: Role_id
+          in: path
+          required: true
+          type: integer
+          minimum: 1
+          format: int64
+      responses:
+        '200':
+          description: Deleted Roles successfully
+        '400':
+          description: Invalid Role ID supplied
+        '404':
+          description: Roles not found
+  
+ 
+ 
+  /User/{UserName}:
+    get:
+      tags:
+        - User
+      summary: Get User by UserName
+      description: 'Reading a User by UserName'
+      operationId: GetUserByName
+      produces:
+        - application/json
+      parameters:
+        - name: UserName
+          in: path
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Getting a User by UserName successfully
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid username supplied
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/User'
+    put:
+      tags:
+        - User
+      summary: Updated user
+      description: name that need to be updated and this can only be done by the logged in user
+      operationId: UpdateUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - name: UserName
+          in: path
+          required: true
+          type: string
+        - in: body
+          name: body
+          description: Updated user object
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        '200':
+          description: User Details are Updated successfully
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid username supplied
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/User'
+    delete:
+      tags:
+        - User
+      summary: Delete user
+      description: This can only be done by the logged in user.
+      operationId: DeleteUser
+      produces:
+        - application/json
+      parameters:
+        - name: UserName
+          in: path
+          description: The User needs to be deleted
+          required: true
+          type: string
+      responses:
+        '200':
+          description: Deleted a User successfully
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid username supplied
+          schema:
+            $ref: '#/definitions/User'
+        '404':
+          description: User not found
+          schema:
+            $ref: '#/definitions/User'
+  /User/Login:
+    get:
+      tags:
+        - User
+      summary: Logs user into the system
+      description: 'User can be Login'
+      operationId: LoginUser
+      produces:
+        - application/json
+      parameters:
+        - name: UserName
+          in: query
+          description: The user name for login
+          required: true
+          type: string
+        - name: password
+          in: query
+          description: The password for login in clear text
+          required: true
+          type: string
+      responses:
+        '200':
+          description: User logged in successfully
+          headers:
+            X-Expires-After:
+              type: string
+              format: date-time
+              description: date in UTC when token expires
+            X-Rate-Limit:
+              type: integer
+              format: int32
+              description: calls per hour allowed by the user
+          schema:
+            type: string
+        '400':
+          description: Invalid username/password supplied
+  /User/Logout:
+    get:
+      tags:
+        - User
+      summary: Logs out current logged in user session
+      description: 'User can be Logged Out'
+      operationId: LogoutUser
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        default:
+          description: User Logged Out successfully
+  /User:
+    post:
+      tags:
+        - User
+      summary: Create User
+      description: This can only be done by the logged in user.
+      operationId: CreateUser
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Created user object
+          required: true
+          schema:
+            $ref: '#/definitions/User'
+      responses:
+        default:
+          description: successful operation
+        '200':
+          description: User created successfully
+          schema:
+            $ref: '#/definitions/User'
+        '400':
+          description: Invalid username supplied
+        '404':
+          description: User not found  
+  /Resource:
+    post:
+      tags: 
+        - Resource
+      summary: Add a new Resource 
+      description: 'Create a new Resource'
+      operationId: addResource
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Resource'
+      responses:
+        '200':
+          description: Resource created successfully
+          schema:
+            $ref: '#/definitions/Resource'
+        '400':
+          description: Invalid Resource input
+          schema:
+            $ref: '#/definitions/Resource'
+    get:
+      tags: 
+        - Resource
+      summary: Get all the Resource 
+      description: 'Read all the Resources'
+      operationId: GetallResource
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          required: true
+          schema:
+            $ref: '#/definitions/Resource'
+      responses:
+        '200':
+          description: Finded all Resources successfully
+          schema:
+            $ref: '#/definitions/Resource'
+        '400':
+          description: Invalid Resource input
+          schema:
+            $ref: '#/definitions/Resource'
+    
+    put:
+      tags:
+        - Resource
+      summary: Update an existing Resource
+      description: 'Updating the existing Resource'
+      operationId: updateResource
+      consumes:
+        - application/json
+      produces:
+        - application/json
+      parameters:
+        - in: body
+          name: body
+          description: Resource object that needs to be added 
+          required: true
+          schema:
+            $ref: '#/definitions/Resource'
+      responses:
+        '200':
+          description: Resource updated successfully
+          schema:
+            $ref: '#/definitions/Resource'
+        '400':
+          description: Invalid Resource ID supplied
+        '404':
+          description: Resource not found
+        '405':
+          description: Validation exception
+  /Resource/{Resource_id}:
+    get:
+      tags:
+        - Resource
+      summary: Find Resource by ID
+      description: Returns a single Resource
+      operationId: GetResourceById
+      produces:
+        - application/json
+      parameters:
+        - name: Resource_id
+          in: path
+          description: ID of resource to return
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Finded Resource by ID successfully
+          schema:
+            $ref: '#/definitions/Resource'
+        '400':
+          description: Invalid Resource ID supplied
+          schema:
+            $ref: '#/definitions/Resource'
+        '404':
+          description: Resource not found    
+          schema:
+            $ref: '#/definitions/Resource'
+    delete:
+      tags:
+        - Resource
+      summary: Deletes a Resource
+      description: 'Resource ID to delete'
+      operationId: DeleteResource
+      produces:
+        - application/json
+      parameters:
+        - name: api_key
+          in: header
+          required: false
+          type: string
+        - name: Resource_id
+          in: path
+          required: true
+          type: integer
+          format: int64
+      responses:
+        '200':
+          description: Deleted Resource successfully
+          schema:
+            $ref: '#/definitions/Resource'
+        '400':
+          description: Invalid Resource ID supplied
+        '404':
+          description: Resource not found        
+definitions:
+  Permission:
+    type: object
+    required:
+      - name
+    properties:
+      Permission_id:
+        type: integer
+        format: int64
+      Permission_name:
+        type: string
+        example: doggie
+      description:
+        type: string
+      Active:
+        type: string
+      status:
+        type: string
+        enum:
+          - available
+          - pending
+          - sold
+  Roles:
+    type: object
+    properties:
+      Role_id:
+        type: integer
+        format: int64
+      Role_name:
+        type: string
+      description:
+        type: string
+      active:
+        type: string
+      status:
+        type: string
+        description: Order Status
+        enum:
+          - Role is currently active
+          - Role is not currently active
+          - This Role is not available
+      complete:
+        type: boolean
+  Resource:
+    type: object
+    properties:
+      Resource_id:
+        type: integer
+        format: int64
+      Resource_name:
+        type: string
+      description:
+        type: string
+      active:
+        type: string
+  User:
+    type: object
+    properties:
+      id:
+        type: integer
+        format: int64
+      firstname:
+        type: string
+      middleName:
+        type: string
+      lastName:
+        type: string
+      email:
+        type: string
+      password:
+        type: string
+      phone:
+        type: string
+      last_login:
+        type: integer
+        format: int32
+        description: User Status
+    
+
